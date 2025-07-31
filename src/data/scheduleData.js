@@ -1,5 +1,6 @@
 import { getApps, getApp, initializeApp } from "firebase/app";
 import { getDatabase, ref, onValue, set, get } from "firebase/database";
+import { getAuth, signInAnonymously } from "firebase/auth";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -30,6 +31,16 @@ try {
   
   // Get Database instance
   database = getDatabase(app);
+
+// Initialize Auth and sign in anonymously
+const auth = getAuth(app);
+signInAnonymously(auth)
+  .then(() => {
+    console.log("Anonymous sign-in successful");
+  })
+  .catch((error) => {
+    console.error("Anonymous sign-in failed:", error);
+  });
 } catch (error) {
   console.error("Error initializing Firebase in scheduleData.js:", error);
 }
